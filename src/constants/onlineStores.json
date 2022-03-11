@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ST04287850",
+    "logo": "/images/amazon.jpg",
+    "name": "Amazon",
+    "slug": "amazon",
+    "type": "online-store",
+    "url": "https://www.amazon.com/"
+  },
+  {
+    "id": "ST11366804",
+    "slug": "ebay",
+    "logo": "/images/eBay.jpg",
+    "name": "eBay",
+    "type": "online-store",
+    "url": "https://www.ebay.com/"
+  },
+  {
+    "id": "ST05364519",
+    "logo": "/images/apple.jpg",
+    "name": "Apple",
+    "slug": "apple",
+    "type": "online-store",
+    "url": "https://www.apple.com/"
+  }
+]
