@@ -9,9 +9,9 @@ const url =
   'https://www.amazon.com/-/es/Razer-Huntsman-Teclado-juegos-teclas/dp/B09C13WYDX/?_encoding=UTF8&pd_rd_w=Iz2Fe&pf_rd_p=e58bf889-b9a2-466d-b7c3-2fdf8b019cec&pf_rd_r=G9WSZ9D3M4JHV8TJXX6P&pd_rd_r=0c984a36-78a2-4b70-81f7-2e44c67fe137&pd_rd_wg=dgT1K&ref_=pd_gw_ci_mcx_mr_hp_atf_m';
 
 const Home: NextPage = () => {
-  const { data, isLoading } = trpc.useQuery(['scrapper', { url: url }]);
+  // const { data, isLoading } = trpc.useQuery(['scrapper', { url: url }]);
 
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>
@@ -21,7 +21,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>{data?.price}</h1>
+        <h1 className={styles.title}>Price</h1>
+        <h2 className="text-5xl text-center bg-red-500">Amazon</h2>
       </main>
       <footer className={styles.footer}>
         <a

@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import { withTRPC } from '@trpc/next';
+
 import { AppRouter } from '@root/backend/router';
 import '../styles/globals.css';
 
