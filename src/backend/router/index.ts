@@ -2,15 +2,16 @@ import * as trpc from '@trpc/server';
 import { z } from 'zod';
 
 import ProductData from '@root/interfaces/ProductData';
+import OnlineStore from '@root/interfaces/OnlineStore';
 import { getDomainData } from '@root/utils/getDomainData';
 import { scraperAmazon } from '@root/utils/scraper';
 import stores from '@root/constants/onlineStores.json';
 
 export interface ResponseInstance extends ProductData {
-  onlineStore: any;
+  onlineStore: OnlineStore;
 }
 
-const handleStore = async (url: string, domain: string) => {
+const handleStore = async (url: string, domain: string): Promise<ProductData | null> => {
   let productData;
   switch (domain) {
     case 'amazon':
@@ -29,8 +30,8 @@ const handleStore = async (url: string, domain: string) => {
   return productData;
 };
 
-export const appRouter = trpc.router().query('scrapper', {
-  input: z.object({ url: z.string() }).nullish(),
+export const appRouter = trpc.router().mutation('scrapper', {
+  input: z.object({ url: z.string().nullish() }).nullish(),
   async resolve({ input }) {
     const rawUrl = input?.url;
 
@@ -57,7 +58,7 @@ export const appRouter = trpc.router().query('scrapper', {
       });
     }
 
-    const onlineStore = stores.find((store) => store?.slug === name);
+    const onlineStore = stores.find((store: OnlineStore) => store?.slug === name);
 
     if (!onlineStore) {
       throw new trpc.TRPCError({
@@ -67,8 +68,6 @@ export const appRouter = trpc.router().query('scrapper', {
     }
 
     const productData = await handleStore(rawUrl, name);
-
-    console.log(productData);
 
     const response: ResponseInstance = {
       ...productData,
