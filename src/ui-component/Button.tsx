@@ -11,7 +11,6 @@ interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   fullWidth?: boolean;
   variant?: 'contained' | 'outlined';
   startIcon?: ReactNode;
-  endIcon?: ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -25,7 +24,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     variant = 'contained',
     onClick,
     startIcon: startIconProp,
-    endIcon: endIconProp,
     ...rest
   } = props;
 

@@ -5,7 +5,7 @@ import { ChangeEvent, ReactNode, useState } from 'react';
 import { DownloadIcon, SearchIcon } from '@heroicons/react/outline';
 
 import { trpc } from '@root/utils/trpc';
-import { Button, Paper } from '@root/components';
+import { Button, Paper, Skeleton } from '@root/ui-component';
 import { EMPTY_IMAGE } from '@root/constants/variables';
 import stringIsAValidUrl from '@root/utils/stringIsAValidUrl';
 import styles from '@root/styles/Home.module.css';
@@ -78,16 +78,22 @@ const Home: NextPage = () => {
         </div>
         <div className="w-full border-b border-gray-300 pb-4 mb-4"></div>
         <Paper className="p-8" shadow={false}>
-          {mutacion.isLoading ? (
-            <div>
-              <h5>Cargando...</h5>
-            </div>
-          ) : (
-            <div className="grid grid-cols-3 gap-6">
-              <div className="col-span-3 md:col-span-1">
+          <div className="grid grid-cols-3 gap-6">
+            <div className="col-span-3 md:col-span-1">
+              {mutacion.isLoading ? (
+                <Paper className="animate-pulse">
+                  <div className="p-6 bg-transparent opacity-100">
+                    <Skeleton width="40%" height={28} />
+                    <div className="relative block max-w-xs my-4 mx-auto">
+                      <Skeleton width={320} height={320} />
+                    </div>
+                    <Skeleton width="100%" height={40} />
+                  </div>
+                </Paper>
+              ) : (
                 <Paper>
                   <div className="p-6 bg-transparent opacity-100">
-                    <h5 className="text-slate-700 font-bold text-xl ">Product Image</h5>
+                    <h5 className="text-slate-700 font-bold text-xl">Product Image</h5>
                     <div className="relative block max-w-xs my-4 mx-auto">
                       <Image
                         className="rounded-md object-cover"
@@ -98,60 +104,58 @@ const Home: NextPage = () => {
                         height={320}
                       />
                     </div>
-                    <div>
-                      <Button fullWidth variant="outlined" disabled={!mutacion.data?.image}>
-                        <DownloadIcon className="h-5 w-5 mr-2 text-inherit" />
-                        Download
-                      </Button>
-                    </div>
+                    <Button fullWidth variant="outlined" disabled={!mutacion.data?.image}>
+                      <DownloadIcon className="h-5 w-5 mr-2 text-inherit" />
+                      Download
+                    </Button>
                   </div>
                 </Paper>
-              </div>
-              <div className="col-span-3 md:col-span-2">
-                <Paper>
-                  <div className="p-6 bg-transparent opacity-100">
-                    <h5 className="text-slate-700 font-bold text-xl">Product Information</h5>
-                    <div className="grid grid-cols-2 gap-4 mt-4">
-                      <div className="col-span-2">
-                        <ProductItem title="Name" text={mutacion.data?.name} />
-                      </div>
-                      <div className="col-span-2 md:col-span-1">
-                        <ProductItem
-                          title="Link"
-                          text={
-                            mutacion.data?.url && (
-                              <a
-                                className="hover:text-indigo-700 hover:underline"
-                                href={mutacion.data?.url}
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                {mutacion.data?.url}
-                              </a>
-                            )
-                          }
-                        />
-                      </div>
-                      <div className="col-span-2 md:col-span-1">
-                        <ProductItem
-                          title="Store"
-                          text={
-                            mutacion.data?.onlineStore &&
-                            `${mutacion.data?.onlineStore.name} (${mutacion.data?.onlineStore.url})`
-                          }
-                        />
-                      </div>
-                      <div className="col-span-2 md:col-span-1">
-                        <ProductItem
-                          title="Price"
-                          text={mutacion.data?.price && `$ ${mutacion.data?.price}`}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Paper>
-              </div>
+              )}
             </div>
-          )}
+            <div className="col-span-3 md:col-span-2">
+              <Paper>
+                <div className="p-6 bg-transparent opacity-100">
+                  <h5 className="text-slate-700 font-bold text-xl">Product Information</h5>
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="col-span-2">
+                      <ProductItem title="Name" text={mutacion.data?.name} />
+                    </div>
+                    <div className="col-span-2 md:col-span-1">
+                      <ProductItem
+                        title="Link"
+                        text={
+                          mutacion.data?.url && (
+                            <a
+                              className="hover:text-indigo-700 hover:underline"
+                              href={mutacion.data?.url}
+                              target="_blank"
+                              rel="noopener noreferrer">
+                              {mutacion.data?.url}
+                            </a>
+                          )
+                        }
+                      />
+                    </div>
+                    <div className="col-span-2 md:col-span-1">
+                      <ProductItem
+                        title="Store"
+                        text={
+                          mutacion.data?.onlineStore &&
+                          `${mutacion.data?.onlineStore.name} (${mutacion.data?.onlineStore.url})`
+                        }
+                      />
+                    </div>
+                    <div className="col-span-2 md:col-span-1">
+                      <ProductItem
+                        title="Price"
+                        text={mutacion.data?.price && `$ ${mutacion.data?.price}`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Paper>
+            </div>
+          </div>
         </Paper>
       </main>
     </div>
