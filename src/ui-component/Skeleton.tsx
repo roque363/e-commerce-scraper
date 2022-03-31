@@ -13,7 +13,7 @@ const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={clsx('bg-slate-200', 'rounded', className)}
+      className={clsx('animate-pulse', 'bg-slate-200', 'rounded', className)}
       style={{ width, height, ...style }}
     />
   );

@@ -1,15 +1,12 @@
 import * as trpc from '@trpc/server';
 import { z } from 'zod';
 
-import ProductData from '@root/interfaces/ProductData';
-import OnlineStore from '@root/interfaces/OnlineStore';
 import { getDomainData } from '@root/utils/getDomainData';
 import { scraperAmazon } from '@root/utils/scraper';
+import ProductData from '@root/interfaces/ProductData';
+import OnlineStore from '@root/interfaces/OnlineStore';
+import ResponseInstance from '@root/interfaces/ResponseInstance';
 import stores from '@root/constants/onlineStores.json';
-
-export interface ResponseInstance extends ProductData {
-  onlineStore: OnlineStore;
-}
 
 const handleStore = async (url: string, domain: string): Promise<ProductData | null> => {
   let productData;
