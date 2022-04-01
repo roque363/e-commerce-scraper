@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import { DownloadIcon } from '@heroicons/react/outline';
+import { saveAs } from 'file-saver';
 
 import { Button, Paper, Skeleton } from '@root/ui-component';
 import { EMPTY_IMAGE } from '@root/constants/variables';
@@ -12,6 +14,17 @@ interface ProductImageCardProps {
 
 const ProductImageCard = (props: ProductImageCardProps) => {
   const { data, isLoading = false } = props;
+  const [isLoadingImg, setLoadingImg] = useState(false);
+
+  const downloadImage = async () => {
+    if (!data?.image) {
+      return;
+    }
+    setLoadingImg(true);
+    const image: string | Blob = data?.image;
+    saveAs(image, 'image.jpg');
+    setLoadingImg(false);
+  };
 
   return (
     <Paper>
@@ -36,8 +49,13 @@ const ProductImageCard = (props: ProductImageCardProps) => {
                 height={320}
               />
             </div>
-            <Button fullWidth variant="outlined" disabled={!data?.image}>
-              <DownloadIcon className="h-5 w-5 mr-2 text-inherit" />
+            <Button
+              fullWidth
+              variant="outlined"
+              isLoading={isLoadingImg}
+              disabled={!data?.image}
+              onClick={downloadImage}
+              startIcon={<DownloadIcon className="h-5 w-5  text-inherit" />}>
               Download
             </Button>
           </>
