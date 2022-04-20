@@ -20,10 +20,10 @@ In the project directory, you can run:
     ├── build                   # Compiled files, production-ready build.
     ├── public                  # Static files.
     ├── src                     # Source files.
-    |   ├── backend             #
+    |   ├── backend             # Holds the logic of the services.
     |   ├── components          # Business common components.
-    |   ├── constants           #
-    |   ├── icons               #
+    |   ├── constants           # Naming variables.
+    |   ├── icons               # Custom icons of the project.
     |   ├── interfaces          # Common types for Typescript.
     |   ├── pages               # Next js pages.
     |   ├── styles              # This module holds our application-level styles.
